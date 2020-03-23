@@ -1,0 +1,2 @@
+MAX_DISTANCE = 30
+MIN_GRADE = '5.8'

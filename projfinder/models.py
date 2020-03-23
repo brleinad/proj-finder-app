@@ -8,6 +8,8 @@ import json
 import requests
 import ipinfo
 
+from . import defaults
+
 
 """
 
@@ -59,7 +61,7 @@ class ProjFinder(models.Model):
         if not re.match(r'5\.\d{1,2}[a-d]?', str(self.min_grade)):
             raise UserInputError('Grade given is not a valid climbing grade in the YDS.')
 
-    def main(self, min_grade = 5.9):
+    def main(self, min_grade=defaults.MIN_GRADE, max_distance=defaults.MAX_DISTANCE):
 
         # TODO: optionally get the email/key from the user.
         email    = 'daniel.rodas.bautista@gmail.com'
@@ -85,7 +87,7 @@ class ProjFinder(models.Model):
         print()
         ## Based on that location ask MP for all the routes nearby (max default 50).
         print('Getting nearby routes.')
-        nearby_routes = MP.get_nearby_routes(location, min_diff=min_grade)
+        nearby_routes = MP.get_nearby_routes(location, min_diff=min_grade, max_distance=max_distance)
 
         ## Get list of best routes (top 5 by default).
         # TODO: allow user to say how many top routes to get

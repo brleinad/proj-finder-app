@@ -26,7 +26,9 @@ def proj_finder_view(request):
             #update routes
             #location = get_location()
             #routes = ProjFinder(location = location, min_grade = form.min_grade, max_distance = form.max_distance) 
-            routes = proj_finder.main(min_grade = form.cleaned_data.get('min_grade'))
+            routes = proj_finder.main(
+                    min_grade=form.cleaned_data.get('min_grade'),
+                    max_distance=form.cleaned_data.get('max_distance'))
             context['routes'] = routes
             return render(request, 'projfinder.html', context)
         else:
