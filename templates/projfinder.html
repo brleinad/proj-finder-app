@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Proj Finder</h1>
+
+<form method="post">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <button type="submit">Find Proj</button>
+</form>
+<!--<p>Your location is set to  location.-->
+
+{% for route in routes %}
+
+<div>
+   <div class="card">
+      <ul>
+         <li>Route Name:    {{ route.name  }}</li>
+         <li>Route Grade:   {{ route.grade }}</li>
+         <li>Route Style:   {{ route.style }}</li>
+         <li>Route Stars:   {{ route.stars }}</li>
+         <li>Route Pitches: {{ route.pitches }}</li>
+         <li>Route URL:     <a href="{{ route.url }}"> {{ route.url }} </a></li>
+      </ul>
+   </div>
+</div>
+
+<br>
+
+{% endfor %}
+
+
+{% endblock %}
