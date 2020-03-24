@@ -231,7 +231,7 @@ class Location(object):
                             country   :   {self.country}'    
         return location_str
 
-    def get_location(self, request, ip_address = None):
+    def get_location(self, ip_address = None):
         """
         Returns a touple with lattitute and longitude according to the IP address. It uses the ipinfo library.
         """
