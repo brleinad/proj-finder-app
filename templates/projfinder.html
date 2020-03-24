@@ -4,7 +4,7 @@
 
 <h1>Proj Finder</h1>
 
-<div class="row">
+<div class="section">
    <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
@@ -13,24 +13,31 @@
 </div>
 <!--<p>Your location is set to  location.-->
 
+
+<div class="section">
+   <table class="u-full-width">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Style</th>
+            <th>Stars</th>
+            <th>Pitches</th>
+         </tr>
+      </thead>
+      <tbody>
 {% for route in routes %}
-
-<div class="row">
-   <div class="card">
-      <ul>
-         <li>Route Name:    {{ route.name  }}</li>
-         <li>Route Grade:   {{ route.grade }}</li>
-         <li>Route Style:   {{ route.style }}</li>
-         <li>Route Stars:   {{ route.stars }}</li>
-         <li>Route Pitches: {{ route.pitches }}</li>
-         <li>Route URL:     <a href="{{ route.url }}"> {{ route.url }} </a></li>
-      </ul>
-   </div>
-</div>
-
-<br>
-
+         <tr>
+            <td><a href="{{ route.url }}">{{ route.name  }}</a></td>
+            <td>{{ route.grade }}</td>
+            <td>{{ route.style }}</td>
+            <td>{{ route.stars }}</td>
+            <td>{{ route.pitches }}</td>
+         </tr>
 {% endfor %}
+      </tbody>
+   </table>
+</div>
 
 
 {% endblock %}
