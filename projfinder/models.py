@@ -88,6 +88,7 @@ class ProjFinder(models.Model):
         ## Getting the location based on the IP address.
         ip_address = self.get_client_ip(request)
         self.location.get_location(ip_address)
+        #self.location.get_location()
         print('Your location is set to:')
         self.location.print_location()
 
