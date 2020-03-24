@@ -46,6 +46,7 @@ class ProjFinder(models.Model):
             #route.print_route_name() 
             print(route) 
 
+
     def get_user_input(self):
         """
         Asks for User input and save to self.
@@ -61,7 +62,15 @@ class ProjFinder(models.Model):
         if not re.match(r'5\.\d{1,2}[a-d]?', str(self.min_grade)):
             raise UserInputError('Grade given is not a valid climbing grade in the YDS.')
 
-    def main(self, min_grade=defaults.MIN_GRADE, max_distance=defaults.MAX_DISTANCE):
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+
+    def main(self, request, min_grade=defaults.MIN_GRADE, max_distance=defaults.MAX_DISTANCE):
 
         # TODO: optionally get the email/key from the user.
         email    = 'daniel.rodas.bautista@gmail.com'
@@ -70,24 +79,22 @@ class ProjFinder(models.Model):
         nearby_routes = []
         best_routes   = []
         MP            = MountainProjectAPI(email, key)
-        location      = Location()
+        self.location      = Location()
 
-        # Testing
-        #MP.get_user(email)
-        
         ## User gives max red point grade (sport by default).
         ## Optionally the user can choose max distance, style, pitches, etc.
         #self.get_user_input()
 
         ## Getting the location based on the IP address.
-        location.get_location()
+        ip_address = self.get_client_ip(request)
+        self.location.get_location(ip_address)
         print('Your location is set to:')
-        location.print_location()
+        self.location.print_location()
 
         print()
         ## Based on that location ask MP for all the routes nearby (max default 50).
         print('Getting nearby routes.')
-        nearby_routes = MP.get_nearby_routes(location, min_diff=min_grade, max_distance=max_distance)
+        nearby_routes = MP.get_nearby_routes(self.location, min_diff=min_grade, max_distance=max_distance)
 
         ## Get list of best routes (top 5 by default).
         # TODO: allow user to say how many top routes to get
@@ -224,7 +231,7 @@ class Location(object):
                             country   :   {self.country}'    
         return location_str
 
-    def get_location(self, ip_address = None):
+    def get_location(self, request, ip_address = None):
         """
         Returns a touple with lattitute and longitude according to the IP address. It uses the ipinfo library.
         """
