@@ -10,6 +10,7 @@ django = "==3.0"
 whitenoise = "==5.0.1"
 requests = "==2.23.0"
 ipinfo = "*"
+gunicorn = "==19.9.0"
 
 [requires]
 python_version = "3.8"
