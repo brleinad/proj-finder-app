@@ -10,6 +10,11 @@ class ProjFinderForm(forms.Form):
             max_length=6, 
             initial=defaults.MIN_GRADE,
             )
+    max_grade = forms.CharField(
+            label='Maximum climbing grade (YDS)', 
+            max_length=6, 
+            initial=defaults.MAX_GRADE,
+            )
     max_distance = forms.DecimalField(
             label='Distance from your current location (miles)', 
             max_digits=6, 

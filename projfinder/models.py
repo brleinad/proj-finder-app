@@ -70,7 +70,7 @@ class ProjFinder(models.Model):
             ip = request.META.get('REMOTE_ADDR')
         return ip
 
-    def main(self, request, min_grade=defaults.MIN_GRADE, max_distance=defaults.MAX_DISTANCE):
+    def main(self, request, min_grade=defaults.MIN_GRADE, max_grade=defaults.MAX_GRADE, max_distance=defaults.MAX_DISTANCE):
 
         # TODO: optionally get the email/key from the user.
         email    = 'daniel.rodas.bautista@gmail.com'
@@ -87,7 +87,6 @@ class ProjFinder(models.Model):
 
         ## Getting the location based on the IP address.
         ip_address = self.get_client_ip(request)
-        print(f'BOB your IP is {ip_address}')
         if ip_address == '127.0.0.1':
             #If on Dev mode just use local IP
             ip_address = None 
@@ -98,7 +97,7 @@ class ProjFinder(models.Model):
         print()
         ## Based on that location ask MP for all the routes nearby (max default 50).
         print('Getting nearby routes.')
-        nearby_routes = MP.get_nearby_routes(self.location, min_diff=min_grade, max_distance=max_distance)
+        nearby_routes = MP.get_nearby_routes(self.location, min_diff=min_grade, max_diff=max_grade, max_distance=max_distance)
 
         ## Get list of best routes (top 5 by default).
         # TODO: allow user to say how many top routes to get

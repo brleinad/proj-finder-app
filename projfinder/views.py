@@ -21,6 +21,7 @@ def projfinder_view(request):
     projfinder   = ProjFinder()
     form         = ProjFinderForm()
     min_grade    = defaults.MIN_GRADE
+    max_grade    = defaults.MAX_GRADE
     max_distance = defaults.MAX_DISTANCE
 
     if request.method == 'POST':
@@ -28,6 +29,7 @@ def projfinder_view(request):
         if form.is_valid():
             #TODO: Tell User that form was ok
             min_grade    = form.cleaned_data.get('min_grade')
+            max_grade    = form.cleaned_data.get('max_grade')
             max_distance = form.cleaned_data.get('max_distance')
         else:
             for msg in form.error_messages:
@@ -40,6 +42,7 @@ def projfinder_view(request):
     routes = projfinder.main(
             request=request,
             min_grade=min_grade,
+            max_grade=max_grade,
             max_distance=max_distance,
             )
     context['routes']   = routes
