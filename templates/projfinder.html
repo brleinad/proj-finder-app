@@ -3,6 +3,12 @@
 {% block content %}
 
 <h1>Proj Finder</h1>
+<h6>Say bye to the endless hours browsing Mountain Project.</h6>
+<div class="section">
+   <p>
+   The <strong>Proj Finder</strong> helps you find your next climbing project.
+   </p>
+</div>
 
 <div class="section">
    <form method="post">
@@ -28,7 +34,7 @@
       <tbody>
 {% for route in routes %}
          <tr>
-            <td><a href="{{ route.url }}">{{ route.name  }}</a></td>
+            <td><a target="_blank" href="{{ route.url }}">{{ route.name  }}</a></td>
             <td>{{ route.grade }}</td>
             <td>{{ route.style }}</td>
             <td>{{ route.stars }}</td>

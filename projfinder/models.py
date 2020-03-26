@@ -29,7 +29,7 @@ class ProjFinder(models.Model):
     def __init__(self):
         self.nearby_route =[]
 
-    def get_best_routes(self, routes, top = 5):
+    def get_best_routes(self, routes, top = 10):
         """
         Returns a list of the best routes (based on the stars) given a list of routes)
         """
@@ -87,8 +87,11 @@ class ProjFinder(models.Model):
 
         ## Getting the location based on the IP address.
         ip_address = self.get_client_ip(request)
+        print(f'BOB your IP is {ip_address}')
+        if ip_address == '127.0.0.1':
+            #If on Dev mode just use local IP
+            ip_address = None 
         self.location.get_location(ip_address)
-        #self.location.get_location()
         print('Your location is set to:')
         self.location.print_location()
 
@@ -143,7 +146,7 @@ class MountainProjectAPI(object):
         self.jprint(response.json())
         return response
 
-    def get_nearby_routes(self, location, max_distance = 30, max_results = 50, min_diff = 5.6, max_diff = 5.13):
+    def get_nearby_routes(self, location, max_distance = 30, max_results = 100, min_diff = 5.6, max_diff = 5.13):
         """
         Given a location in the form of a tuple it will look for all the routes near that location and return them in a list of routes.
         """
