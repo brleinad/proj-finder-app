@@ -5,6 +5,7 @@ __author__ = 'brleinad'
 
 import re
 import json 
+import os
 import requests
 import ipinfo
 
@@ -74,8 +75,8 @@ class ProjFinder(models.Model):
 
         # TODO: optionally get the email/key from the user.
         email    = 'daniel.rodas.bautista@gmail.com'
-        key      = '200222284-dae8be573771fdff71e7b535b47b600d'
-
+        key      = os.getenv('mp_key') 
+        print(f'YO key is {key}')
         nearby_routes = []
         best_routes   = []
         MP            = MountainProjectAPI(email, key)
@@ -239,7 +240,7 @@ class Location(object):
         Returns a touple with lattitute and longitude according to the IP address. It uses the ipinfo library.
         """
 
-        access_token   = 'eba1bfd8659873'
+        access_token   = os.getenv('ipinfo_key')
         handler        = ipinfo.getHandler(access_token)
         details        = handler.getDetails(ip_address)
         self.city      = details.city

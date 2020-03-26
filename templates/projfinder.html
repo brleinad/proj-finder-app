@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -8,12 +9,16 @@
    <p>
    The <strong>Proj Finder</strong> helps you find your next climbing project.
    </p>
+   <p>
+   Your location is set using your IP address: {{ location.city }}, {{ location.country }}
+   </p>
 </div>
 
+<!--TODO: make the form look nicer-->
 <div class="section">
    <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy }}
       <button type="submit">Find Proj</button>
    </form>
 </div>
