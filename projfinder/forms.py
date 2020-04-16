@@ -5,11 +5,11 @@ from . import defaults
 class ProjFinderForm(forms.Form):
 
     #TODO: Make this a custom field with only  valid values
-    min_grade = forms.CharField(
-            label='Minimum climbing grade (YDS)', 
-            max_length=6, 
-            initial=defaults.MIN_GRADE,
-            )
+    #min_grade = forms.CharField(
+    #        label='Minimum climbing grade (YDS)', 
+    #        max_length=6, 
+    #        initial=defaults.MIN_GRADE,
+    #        )
     max_grade = forms.CharField(
             label='Maximum climbing grade (YDS)', 
             max_length=6, 

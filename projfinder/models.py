@@ -71,20 +71,14 @@ class ProjFinder(models.Model):
             ip = request.META.get('REMOTE_ADDR')
         return ip
 
-    def main(self, request, min_grade=defaults.MIN_GRADE, max_grade=defaults.MAX_GRADE, max_distance=defaults.MAX_DISTANCE):
+    def main(self, request, min_grade=None, max_grade=defaults.MAX_GRADE, max_distance=defaults.MAX_DISTANCE):
 
-        # TODO: optionally get the email/key from the user.
         email    = 'daniel.rodas.bautista@gmail.com'
         key      = os.getenv('mp_key') 
-        print(f'YO key is {key}')
         nearby_routes = []
         best_routes   = []
         MP            = MountainProjectAPI(email, key)
         self.location      = Location()
-
-        ## User gives max red point grade (sport by default).
-        ## Optionally the user can choose max distance, style, pitches, etc.
-        #self.get_user_input()
 
         ## Getting the location based on the IP address.
         ip_address = self.get_client_ip(request)
@@ -95,17 +89,19 @@ class ProjFinder(models.Model):
         print('Your location is set to:')
         self.location.print_location()
 
-        print()
+        if min_grade is None:
+            #Have the default minimum grade be one less than the max grade in YDS
+            min_grade = '5.'
+            min_grade += str(int(max_grade[2:]) - 1)
+
         ## Based on that location ask MP for all the routes nearby (max default 50).
         print('Getting nearby routes.')
         nearby_routes = MP.get_nearby_routes(self.location, min_diff=min_grade, max_diff=max_grade, max_distance=max_distance)
 
         ## Get list of best routes (top 5 by default).
-        # TODO: allow user to say how many top routes to get
         print('Getting the best routes.')
         best_routes = self.get_best_routes(nearby_routes)
 
-        ## Show in a pretty way these routes with route name, grade, location, link.
         self.print_routes(best_routes)
         return best_routes
 

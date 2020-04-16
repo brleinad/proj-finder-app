@@ -1,31 +1,37 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
-<h1>Proj Finder</h1>
-<h6>Say bye to the endless hours browsing Mountain Project.</h6>
-<div class="section">
-   <p>
-   The <strong>Proj Finder</strong> helps you find your next climbing project.
-   </p>
-   <p>
-   Your location is set using your IP address: {{ location.city }}, {{ location.country }}
-   </p>
-</div>
-
+<section class="banner style1 orient-left content-align-left image-position-center fullscreen onload-image-fade-in onload-content-fade-right">
+   <div class="content">
+      <div>
+         <h1>Proj Finder</h1>
+         <h5>Say bye to the endless hours browsing Mountain Project.</h5>
+         <p>The <strong>Proj Finder</strong> helps you find your next climbing project.</p>
+         <p>Your location is set using your IP address to: {{ location.city }}, {{ location.country }}</p>
+      </div>
+      <div>
+         <form action= "#routes" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit">Find Proj</button>
+         </form>
+      </div>
+   </div>
 <!--TODO: make the form look nicer-->
-<div class="section">
-   <form method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <button type="submit">Find Proj</button>
-   </form>
-</div>
-<!--<p>Your location is set to  location.-->
+   <div class="image">
+      <img src="{% static 'images/separatereality_mathias_jacob.jpg' %}" alt="" />
+   </div>
+</section>
 
 
-<div class="section">
+<!--
+<p>Your location is set to  location.-->
+
+
+<section class="wrapper style1 align-center" id="routes">
    <table class="u-full-width">
       <thead>
          <tr>
@@ -48,7 +54,7 @@
 {% endfor %}
       </tbody>
    </table>
-</div>
+</section>
 
 
 {% endblock %}
