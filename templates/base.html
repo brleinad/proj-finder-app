@@ -10,13 +10,20 @@
       <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
       <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-      <!--<link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>-->
+      <noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}"/></noscript>
 
    </head>
    <body class="is-preload">
       <div id="wrapper" class="divided">
       {% block content %}
       {% endblock %}
+
+      <footer class="wrapper style1 align-center">
+         <div class="inner">
+            <p>&copy; Cover Picture by: <a href="mailto:jacobdanielrex@gmail.com">Jacob Rex</a>.</p>
+            <p>&copy; Template Design by: <a href="https://html5up.net">HTML5 UP</a>.</p>
+         </div>
+      </footer>
       </div>
 
       <script src="{% static 'js/jquery.min.js' %}"></script>

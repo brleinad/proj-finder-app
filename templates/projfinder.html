@@ -9,14 +9,20 @@
       <div>
          <h1>Proj Finder</h1>
          <h5>Say bye to the endless hours browsing Mountain Project.</h5>
-         <p>The <strong>Proj Finder</strong> helps you find your next climbing project.</p>
+         <p>
+         The <strong>Proj Finder</strong> helps you find your next climbing project.
+         Simply give the maximum climbing grade you're looking for (in YDS so 5.9, 5.10, 5.11, etc) and the maximum distance that you're willing to drive from your location.
+         </p>
          <p>Your location is set using your IP address to: {{ location.city }}, {{ location.country }}</p>
       </div>
       <div>
          <form action= "#routes" method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit">Find Proj</button>
+            <button type="submit">
+               Find Proj
+            </button>
+            <!--<a href="#routes" class="button big wide smooth-scroll">My projects</a>-->
          </form>
       </div>
    </div>
